@@ -23,6 +23,8 @@ public class CameraController : MonoBehaviour
 
     public static CameraController main;
 
+    Vector3 targetPos;
+
     private void Awake()
     {
         main = this;
@@ -33,11 +35,26 @@ public class CameraController : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    private void OnValidate()
+    {
+        UpdateHolder();
+    }
+
+    void UpdateHolder()
     {
         holder.localEulerAngles = new Vector3(angle, 0, 0);
+        holder.transform.localPosition = new Vector3(0, offset.y, offset.x);
+    }
 
-        Vector3 targetPos = new Vector3(0, offset.y, target.position.z + offset.x);
+    void FixedUpdate()
+    {
+
+        UpdateHolder();
+
+        if (target)
+        {
+            targetPos = target.position;
+        }
 
         transform.position = Vector3.Lerp(transform.position, targetPos, lerpSpeed * Time.deltaTime);
     }
