@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     public HingeJoint visualHingeJoint;
     public LineRenderer lineRen;
 
+    public Vector2 testVec;
+    public float testVal;
+
     [HideInInspector]
     public Rigidbody rb;
 
@@ -76,7 +79,14 @@ public class Player : MonoBehaviour
         else if (tag == "DirectionTriggerGuide")
         {
             correctDirVec = other.transform.forward.ToVector2();
-            targetAngle = correctDirVec.ToAngle();
+
+            //Rounding operations for avoiding floating number problems
+            if (Mathf.Abs(correctDirVec.x) < 0.5f) correctDirVec.x = 0;
+            if (Mathf.Abs(correctDirVec.y) < 0.5f) correctDirVec.y = 0;
+
+            targetAngle = other.transform.eulerAngles.y;
+
+            print("The angle is " + targetAngle);
             isCorrectingDirection = true;
         }
         else if (tag == "DirectionTriggerDisabler")
@@ -150,15 +160,13 @@ public class Player : MonoBehaviour
 
             Vector3 correctDirVec3 = correctDirVec.ToVector3();
 
-            //transform.forward = correctDirVec3;
-
-            rb.velocity = Vector3.Scale(rb.velocity, correctDirVec);
+            rb.velocity = Vector3.Scale(rb.velocity, correctDirVec3);
 
             //Angular correction
 
-            float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle + 90);
+            float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle);
 
-            print(string.Format("Delta Angle: {0} Torque: {1} Target: {2}", deltaAngle, transform.eulerAngles.y, targetAngle + 90));
+            //print(string.Format("Delta Angle: {0} Torque: {1} Target: {2}", deltaAngle, transform.eulerAngles.y, targetAngle + 90));
 
             rb.angularVelocity = Vector3.up * deltaAngle * correctingTorque;
         }
@@ -211,11 +219,11 @@ public class Player : MonoBehaviour
         if (joint)
             return;
 
-        print("Created a joint yeaa");
+        //print("Created a joint yeaa");
 
         joint = gameObject.AddComponent<HingeJoint>();
 
-        Vector3 localAnchor = anchor - transform.position;
+        Vector3 localAnchor = transform.InverseTransformPoint(anchor);
 
         joint.axis = Vector3.up;
         joint.anchor = localAnchor;
