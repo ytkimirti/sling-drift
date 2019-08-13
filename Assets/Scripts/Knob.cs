@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Knob : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Transform dotTrans;
+    SphereCollider sphereCollider;
+
     void Start()
     {
-        
+        sphereCollider = GetComponent<SphereCollider>();
+
+        sphereCollider.center = dotTrans.localPosition;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
