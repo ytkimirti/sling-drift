@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Knob : MonoBehaviour
 {
-    public Transform dotTrans;
+    public Transform visualDotTrans;
+    public Transform jointDotTrans;
     SphereCollider sphereCollider;
 
     void Start()
     {
         sphereCollider = GetComponent<SphereCollider>();
 
-        sphereCollider.center = dotTrans.localPosition;
+        sphereCollider.center = jointDotTrans.localPosition;
     }
 
     void Update()

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Knob
   - Border
+  - DirectionTriggerGuide
+  - DirectionTriggerDisabler
   layers:
   - Default
   - TransparentFX

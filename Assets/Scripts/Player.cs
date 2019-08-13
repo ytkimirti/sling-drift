@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [Header("Connection")]
     public Knob currKnob;
     public bool isMakingConnection;
+    public float minJointDistance;//The distance it takes to just get away from the knob that it creates a joint
     float memDistance;
     HingeJoint joint;
 
@@ -94,18 +95,23 @@ public class Player : MonoBehaviour
         if (isMakingConnection && currKnob)
         {
 
-            UpdateLineRenderer(currKnob.dotTrans.position);
+            UpdateLineRenderer(currKnob.visualDotTrans.position);
 
-            float currDistance = hardDist(currKnob.dotTrans.position);
+            float currDistance = hardDist(currKnob.jointDotTrans.position);
 
-            print(string.Format("MemDist: {0} CurrentDist: {1}", memDistance, currDistance));
+            float diff = (currDistance - memDistance);
 
-            if (currDistance > memDistance)
+            print(string.Format("DIFF: {0} MemDist: {1} CurrentDist: {2}", diff, memDistance, currDistance));
+
+            if (diff > minJointDistance)
             {
-                AddJoint(currKnob.dotTrans.position);
+                print("GOT IN YEAAA");
+                AddJoint(currKnob.jointDotTrans.position);
             }
-
-            memDistance = hardDist(currKnob.dotTrans.position);
+            else if (currDistance < memDistance)
+            {
+                memDistance = currDistance;
+            }
         }
     }
 
@@ -117,12 +123,13 @@ public class Player : MonoBehaviour
         currKnob = knob;
         isMakingConnection = true;
 
-        memDistance = hardDist(knob.dotTrans.position);
+        memDistance = hardDist(knob.jointDotTrans.position);
     }
 
     float hardDist(Vector3 pos)
     {
-        return (pos.ToVector2() - (transform.position.ToVector2())).magnitude;
+        //return (pos.ToVector2() - (transform.position.ToVector2())).magnitude;
+        return Vector3.Distance(transform.position, pos);
     }
 
     void UpdateLineRenderer(Vector3 pos)
@@ -154,6 +161,8 @@ public class Player : MonoBehaviour
     {
         if (joint)
             return;
+
+        print("Created a joint yeaa");
 
         joint = gameObject.AddComponent<HingeJoint>();
 
