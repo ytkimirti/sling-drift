@@ -630,8 +630,6 @@ MonoBehaviour:
   visualCenterOfMass: {fileID: 1772928905}
   visualHingeJoint: {fileID: 1007619198}
   lineRen: {fileID: 226445656}
-  testVec: {x: 0, y: 0}
-  testVal: 0
   rb: {fileID: 0}
 --- !u!4 &226445654
 Transform:
@@ -658,7 +656,7 @@ Rigidbody:
   m_GameObject: {fileID: 226445652}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 10
+  m_Drag: 6
   m_AngularDrag: 10
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -769,7 +767,7 @@ ConstantForce:
   m_GameObject: {fileID: 226445652}
   m_Enabled: 1
   m_Force: {x: 0, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: 0, z: 400}
+  m_RelativeForce: {x: 0, y: 0, z: 200}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1 &229788197
@@ -1533,7 +1531,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 3.53}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 3.5300007}
+  m_ConnectedAnchor: {x: 0, y: 0, z: 3.53}
   m_UseSpring: 1
   m_Spring:
     spring: 500

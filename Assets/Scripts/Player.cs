@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     [ReadOnly]
     public Vector2 correctDirVec; //The rough correct direction, this will be used to correct the rotation of the car
     float targetAngle;
+    float releaseAccuracy;
 
     [Header("References")]
 
@@ -34,9 +35,6 @@ public class Player : MonoBehaviour
     public Transform visualCenterOfMass;
     public HingeJoint visualHingeJoint;
     public LineRenderer lineRen;
-
-    public Vector2 testVec;
-    public float testVal;
 
     [HideInInspector]
     public Rigidbody rb;
@@ -160,7 +158,7 @@ public class Player : MonoBehaviour
 
             Vector3 correctDirVec3 = correctDirVec.ToVector3();
 
-            rb.velocity = Vector3.Scale(rb.velocity, correctDirVec3);
+            //rb.velocity = Vector3.Scale(rb.velocity, correctDirVec3);
 
             //Angular correction
 
