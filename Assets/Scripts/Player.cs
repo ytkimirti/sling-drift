@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [Header("Connection")]
     public Knob currKnob;
     public bool isMakingConnection;
-    float currDistance;
+    float memDistance;
     HingeJoint joint;
 
     [Header("References")]
@@ -96,16 +96,28 @@ public class Player : MonoBehaviour
 
             UpdateLineRenderer(currKnob.dotTrans.position);
 
-            currDistance = hardDist(currKnob.dotTrans.position);
+            float currDistance = hardDist(currKnob.dotTrans.position);
+
+            print(string.Format("MemDist: {0} CurrentDist: {1}", memDistance, currDistance));
+
+            if (currDistance > memDistance)
+            {
+                AddJoint(currKnob.dotTrans.position);
+            }
+
+            memDistance = hardDist(currKnob.dotTrans.position);
         }
     }
 
     void MakeConnection(Knob knob)
     {
+        if (isMakingConnection)
+            return;
+
         currKnob = knob;
         isMakingConnection = true;
 
-        currDistance = hardDist(knob.dotTrans.position);
+        memDistance = hardDist(knob.dotTrans.position);
     }
 
     float hardDist(Vector3 pos)
@@ -132,16 +144,24 @@ public class Player : MonoBehaviour
     {
         isMakingConnection = false;
 
-        currDistance = 0;
+        memDistance = 0;
         UpdateLineRenderer(Vector3.zero);
+
+        RemoveJoint();
     }
 
     void AddJoint(Vector3 anchor)
     {
+        if (joint)
+            return;
+
         joint = gameObject.AddComponent<HingeJoint>();
 
+        Vector3 localAnchor = anchor - transform.position;
+
         joint.axis = Vector3.up;
-        joint.anchor = anchor;
+        joint.anchor = localAnchor;
+        joint.enablePreprocessing = false;
     }
 
     void RemoveJoint()
@@ -150,5 +170,7 @@ public class Player : MonoBehaviour
             return;
 
         Destroy(joint);
+
+        joint = null;
     }
 }

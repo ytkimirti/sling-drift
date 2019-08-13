@@ -991,7 +991,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: 0, y: 0, z: 0.72}
   m_UseSpring: 1
   m_Spring:
-    spring: 100
+    spring: 60
     damper: 0
     targetPosition: 0
   m_UseMotor: 0
@@ -1020,7 +1020,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1007619197}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.01
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
