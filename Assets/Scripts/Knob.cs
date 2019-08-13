@@ -60,7 +60,7 @@ public class Knob : MonoBehaviour
 
     void InverseX(Transform trans)
     {
-        trans.localPosition = new Vector3(-trans.localPosition.x, 0, trans.localPosition.z);
+        trans.localPosition = new Vector3(-trans.localPosition.x, trans.localPosition.y, trans.localPosition.z);
     }
 
     void Update()
