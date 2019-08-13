@@ -10,17 +10,29 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     public float accelerateSpeed;
 
-    [Header("Connection")]
+    [Header("Connection & Turning")]
     public Knob currKnob;
     public bool isMakingConnection;
     public float minJointDistance;//The distance it takes to just get away from the knob that it creates a joint
     float memDistance;
     HingeJoint joint;
 
+    [Space]
+
+    public float correctingTorque;
+    public float correctingForce;
+    [ReadOnly]
+    public bool isCorrectingDirection;
+    [ReadOnly]
+    public Vector2 correctDirVec; //The rough correct direction, this will be used to correct the rotation of the car
+    float targetAngle;
+
     [Header("References")]
 
     public Transform lineCenterTrans;
     public Transform visual;
+    public Transform visualCenterOfMass;
+    public HingeJoint visualHingeJoint;
     public LineRenderer lineRen;
 
     [HideInInspector]
@@ -44,11 +56,15 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        visual.GetComponent<Rigidbody>().centerOfMass = visualCenterOfMass.localPosition;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Knob")
+        string tag = other.tag;
+
+        if (tag == "Knob")
         {
             currKnob = other.gameObject.GetComponent<Knob>();
 
@@ -56,6 +72,17 @@ public class Player : MonoBehaviour
             {
                 Debug.LogError("Somehow this knob doesn't have the script or something is wrong :/");
             }
+        }
+        else if (tag == "DirectionTriggerGuide")
+        {
+            correctDirVec = other.transform.forward.ToVector2();
+            targetAngle = correctDirVec.ToAngle();
+            isCorrectingDirection = true;
+        }
+        else if (tag == "DirectionTriggerDisabler")
+        {
+            correctDirVec = Vector3.zero;
+            isCorrectingDirection = false;
         }
     }
 
@@ -101,17 +128,39 @@ public class Player : MonoBehaviour
 
             float diff = (currDistance - memDistance);
 
-            print(string.Format("DIFF: {0} MemDist: {1} CurrentDist: {2}", diff, memDistance, currDistance));
+            //print(string.Format("DIFF: {0} MemDist: {1} CurrentDist: {2}", diff, memDistance, currDistance));
 
             if (diff > minJointDistance)
             {
-                print("GOT IN YEAAA");
+                //print("GOT IN YEAAA");
                 AddJoint(currKnob.jointDotTrans.position);
             }
             else if (currDistance < memDistance)
             {
                 memDistance = currDistance;
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isCorrectingDirection && !isMakingConnection)
+        {
+            //Velocity correction
+
+            Vector3 correctDirVec3 = correctDirVec.ToVector3();
+
+            //transform.forward = correctDirVec3;
+
+            rb.velocity = Vector3.Scale(rb.velocity, correctDirVec);
+
+            //Angular correction
+
+            float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle + 90);
+
+            print(string.Format("Delta Angle: {0} Torque: {1} Target: {2}", deltaAngle, transform.eulerAngles.y, targetAngle + 90));
+
+            rb.angularVelocity = Vector3.up * deltaAngle * correctingTorque;
         }
     }
 
@@ -171,6 +220,15 @@ public class Player : MonoBehaviour
         joint.axis = Vector3.up;
         joint.anchor = localAnchor;
         joint.enablePreprocessing = false;
+
+        float visualTurnAngle = currKnob.isLeft ? -30 : 30;
+
+        JointSpring hingeSpring = visualHingeJoint.spring;
+
+        hingeSpring.targetPosition = visualTurnAngle;
+
+        visualHingeJoint.spring = hingeSpring;
+
     }
 
     void RemoveJoint()
@@ -179,6 +237,12 @@ public class Player : MonoBehaviour
             return;
 
         Destroy(joint);
+
+        JointSpring hingeSpring = visualHingeJoint.spring;
+
+        hingeSpring.targetPosition = 0;
+
+        visualHingeJoint.spring = hingeSpring;
 
         joint = null;
     }
