@@ -4,6 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using DG.Tweening;
 using TMPro;
+using EZCameraShake;
 
 public class Player : MonoBehaviour
 {
@@ -141,6 +142,8 @@ public class Player : MonoBehaviour
             isCorrectingDirection = true;
 
             LevelSpawner.main.OnKnobFinished();
+
+            //CameraShaker.Instance.ShakeOnce(1, 10, 0, 0.2f);
         }
         else if (tag == "DirectionTriggerDisabler")
         {
@@ -161,6 +164,8 @@ public class Player : MonoBehaviour
 
     void PerfectMade()
     {
+        CameraShaker.Instance.ShakeOnce(1.3f, 10, 0, 0.3f);
+
         currPerfectStreak++;
         perfectTextAnim.SetTrigger("PerfectText");
 
@@ -256,6 +261,10 @@ public class Player : MonoBehaviour
     {
         if (isDed)
             return;
+
+        CameraShaker.Instance.ShakeOnce(5, 5, 0, 0.8f);
+
+        nextStageTextAnim.gameObject.SetActive(false);
 
         RemoveConnection();
 

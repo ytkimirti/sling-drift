@@ -582,6 +582,7 @@ GameObject:
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
   - component: {fileID: 534669906}
+  - component: {fileID: 534669907}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -667,6 +668,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultPosInfluence: {x: 0.15, y: 0.15, z: 0.15}
   DefaultRotInfluence: {x: 1, y: 1, z: 1}
+--- !u!114 &534669907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64941b1002d73d45a26f04fa597c5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Magnitude: 2
+  Roughness: 0.5
+  FadeOutTime: 5
 --- !u!1 &664235799
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,9 +713,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 226445654}
-  offset: {x: 0, y: 83, z: -90}
+  offset: {x: 0, y: 100.1, z: -64.53}
   dynamicOffset: {x: 5, y: 10}
-  angle: 43.71
+  angle: 57.82
   lerpSpeed: 11
   holder: {fileID: 1494976130}
   cam: {fileID: 534669904}
@@ -977,11 +993,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 248}
+  m_AnchoredPosition: {x: 0, y: 629}
   m_SizeDelta: {x: 863.5, y: 256.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &876320067
@@ -1154,7 +1170,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1244,7 +1260,7 @@ RectTransform:
   - {fileID: 1455659797}
   - {fileID: 1918701294}
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1416,7 +1432,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1757,7 +1773,7 @@ RectTransform:
   - {fileID: 1806390110}
   - {fileID: 1790905490}
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1942,7 +1958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2071,8 +2087,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494976129}
-  m_LocalRotation: {x: 0.37225893, y: 0, z: 0, w: 0.9281289}
-  m_LocalPosition: {x: 0, y: 83, z: -90}
+  m_LocalRotation: {x: 0.48343515, y: 0, z: 0, w: 0.87538016}
+  m_LocalPosition: {x: 0, y: 100.1, z: -64.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 534669905}
@@ -2716,8 +2732,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293916046
-  m_fontColor: {r: 0.5582948, g: 0.9622642, b: 0.9374109, a: 1}
+    rgba: 4281723390
+  m_fontColor: {r: 0.9960785, g: 0.91372555, b: 0.20784315, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3215,11 +3231,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1142569619}
   - {fileID: 876320066}
   - {fileID: 1256537441}
   - {fileID: 989135807}
   - {fileID: 882894991}
-  - {fileID: 1142569619}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3278,7 +3294,7 @@ MonoBehaviour:
   knobSpawnChancePerRoad: 69.5
   minRoadsPerKnob: 1
   maxRoadsPerKnob: 2
-  knobsPerBoost: 5
+  knobsPerBoost: 10
   knobPrefab: {fileID: 1614778784693701484, guid: 59f75c486b6de4adbaf5801ec38b11b8,
     type: 3}
   roadPrefab: {fileID: 4231976338949779092, guid: 42761be7af82246f0b1ee66c9a02be8a,
