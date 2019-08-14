@@ -8,7 +8,11 @@ public class Player : MonoBehaviour
 {
 
     public bool isDed = false;
-    public float moveSpeed;
+
+    [Header("Hardness")]
+    public float defMoveSpeed;
+    public float moveSpeedIncreasePerScore;
+    float moveSpeed;
 
     [Header("Connection & Turning")]
     public Knob currKnob;
@@ -59,6 +63,13 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         visual.GetComponent<Rigidbody>().centerOfMass = visualCenterOfMass.localPosition;
+
+        SetMoveSpeed();
+    }
+
+    void SetMoveSpeed()
+    {
+        moveSpeed = defMoveSpeed + (GameManager.main.currScore * moveSpeedIncreasePerScore);
     }
 
     private void OnCollisionEnter(Collision other)

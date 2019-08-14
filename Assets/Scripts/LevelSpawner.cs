@@ -28,6 +28,8 @@ public class LevelSpawner : MonoBehaviour
 
     bool facedWithAKnob;
 
+    int currSpawnScore;
+
     public static LevelSpawner main;
 
     bool firstTimeKnobFinishes = true;
@@ -129,6 +131,10 @@ public class LevelSpawner : MonoBehaviour
             knob.isLeft = M.Flip();//It's like flipping a coin :P
 
             knob.UpdateDirection();
+
+            currSpawnScore++;
+
+            knob.SetScore(currSpawnScore);
 
             spawnerTrans.position = knob.spawnerEndTrans.position;
             spawnerTrans.eulerAngles = knob.spawnerEndTrans.eulerAngles;

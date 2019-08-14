@@ -14,13 +14,19 @@ public class GameManager : MonoBehaviour
 
     [Space]
 
-    public float currScore;
+    public int currScore;
 
     [Header("References")]
 
-    public TextMeshProUGUI currScoreText;
+    public TextMeshProUGUI mainMenuMaxScoreText;
+    [Space]
+    public TextMeshProUGUI gameOverScoreText;
+    public TextMeshProUGUI gameOverMaxScoreText;
+    [Space]
     public Animator gameOverAnim;
     public Animator mainMenuAnim;
+
+    int highScore;
     //REFERENCES ETC CODES ETCETC
 
     //PRIVATE STUFF
@@ -36,7 +42,42 @@ public class GameManager : MonoBehaviour
 
     void Start()//-start
     {
+        LoadHighscore();
 
+        SetMenuScoreTexts();
+    }
+
+    void LoadHighscore()
+    {
+        if (PlayerPrefs.HasKey("highscore"))
+        {
+            highScore = PlayerPrefs.GetInt("highscore");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("highscore", 0);
+            highScore = 0;
+        }
+    }
+
+    void SetHighscore()
+    {
+        if (currScore > highScore)
+        {
+            highScore = currScore;
+            PlayerPrefs.SetInt("highscore", highScore);
+        }
+    }
+
+    void SetMenuScoreTexts()
+    {
+        mainMenuMaxScoreText.text = "Max: " + highScore.ToString();
+    }
+
+    void SetGameOverScoreTexts()
+    {
+        gameOverMaxScoreText.text = "Max: " + highScore.ToString();
+        gameOverScoreText.text = currScore.ToString();
     }
 
     public void StartGame()
@@ -76,6 +117,10 @@ public class GameManager : MonoBehaviour
 
         isGameOver = true;
 
+        SetHighscore();
+
+        SetGameOverScoreTexts();
+
         //Game over code
         gameOverAnim.SetTrigger("GameOver");
     }
@@ -99,9 +144,4 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    void Update()//-update
-    {
-        if (currScoreText)
-            currScoreText.text = "Score: " + currScore.ToString();
-    }
 }

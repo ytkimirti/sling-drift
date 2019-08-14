@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EZ_Pooling;
+using DG.Tweening;
+using TMPro;
 
 public class Knob : MonoBehaviour
 {
@@ -15,9 +17,12 @@ public class Knob : MonoBehaviour
     public Transform correctionEnablerTrans;
     public Transform roadTrans;
     public SphereCollider sphereCollider;
+    public TextMeshPro scoreText;
 
     [HideInInspector]
     public Vector2 turnDir;
+
+    int myScore;
 
 
     void Start()
@@ -30,8 +35,24 @@ public class Knob : MonoBehaviour
         UpdateDirection();
     }
 
+    public void SetScore(int score)
+    {
+        scoreText.color = Color.grey;
+        scoreText.text = score.ToString();
+        myScore = score;
+    }
+
+    public void OnPlayerScored()
+    {
+        GameManager.main.currScore = myScore;
+        scoreText.DOColor(Color.yellow, 0.3f).SetLoops(1, LoopType.Yoyo);
+        scoreText.transform.DOPunchScale(Vector3.one * 0.6f, 0.4f, 4);
+    }
+
     public void UpdateDirection()
     {
+        scoreText.transform.eulerAngles = new Vector3(90, 0, 0);
+
         if (isLeft)
         {
             turnDir = -transform.right;
@@ -59,6 +80,7 @@ public class Knob : MonoBehaviour
         sphereCollider.center = -sphereCollider.center;
         InverseX(visualDotTrans);
         InverseX(correctionEnablerTrans);
+        InverseX(scoreText.transform);
         correctionEnablerTrans.forward = -correctionEnablerTrans.forward;
     }
 
