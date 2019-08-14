@@ -115,7 +115,6 @@ public class Player : MonoBehaviour
 
             targetAngle = other.transform.eulerAngles.y;
 
-            print("The angle is " + targetAngle);
             isCorrectingDirection = true;
 
             LevelSpawner.main.OnKnobFinished();

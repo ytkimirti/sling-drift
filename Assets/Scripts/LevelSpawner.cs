@@ -13,16 +13,19 @@ public class LevelSpawner : MonoBehaviour
 
     [Slider(0, 100)]
     public float knobSpawnChancePerRoad;
-
-    public float roadSpawnOffset;
+    [Space]
     public int minRoadsPerKnob;
     public int maxRoadsPerKnob;
+    [Space]
+    public int knobsPerBoost;
 
-    int spawnedRoadsInARow;
+    int spawnedKnobsInARow;//Resets when a boost spawns
+    int spawnedRoadsInARow;//Resets when a knob spawns
 
     [Space]
     public Transform knobPrefab;
     public Transform roadPrefab;
+    public Transform boostPrefab;
 
     public Transform spawnerTrans;
 
@@ -98,33 +101,60 @@ public class LevelSpawner : MonoBehaviour
     void SpawnBlock()
     {
         bool isKnob = M.Change(knobSpawnChancePerRoad);
+        bool isBoost = false;
 
-        if (spawnedRoadsInARow <= minRoadsPerKnob)
+        if (spawnedKnobsInARow >= knobsPerBoost)
         {
-            isKnob = false;
-        }
-        else if (spawnedRoadsInARow > maxRoadsPerKnob)//If its more than the max amount of roads, just spawn a knob
-        {
-            isKnob = true;
+            isBoost = true;
         }
 
-        if (!isKnob)
-            spawnedRoadsInARow++;
+        if (!isBoost)
+        {
+            if (spawnedRoadsInARow <= minRoadsPerKnob)
+            {
+                isKnob = false;
+            }
+            else if (spawnedRoadsInARow > maxRoadsPerKnob)//If its more than the max amount of roads, just spawn a knob
+            {
+                isKnob = true;
+            }
+
+            if (!isKnob)
+                spawnedRoadsInARow++;
+            else
+            {
+                spawnedRoadsInARow = 0;
+                spawnedKnobsInARow++;
+            }
+        }
         else
-            spawnedRoadsInARow = 0;
+        {
+            spawnedKnobsInARow = 0;
+        }
 
-        SpawnBlock(spawnerTrans.position, spawnerTrans.eulerAngles.y, isKnob);
+        SpawnBlock(spawnerTrans.position, spawnerTrans.eulerAngles.y, isKnob, isBoost);
     }
 
-    void SpawnBlock(Vector3 pos, float angle, bool isKnob)
+    void SpawnBlock(Vector3 pos, float angle, bool isKnob, bool isBoost)
     {
+        //Damn the spawner code is just soo messy :P
         Transform prefab = isKnob ? knobPrefab : roadPrefab;
+
+        if (isBoost)
+            prefab = boostPrefab;
 
         Transform blockTrans = EZ_PoolManager.Spawn(prefab, pos, Quaternion.Euler(0, angle, 0));
 
+        Transform blockChild = blockTrans.GetChild(0);
+
         currBlocks.Insert(0, blockTrans);
 
-        if (isKnob)
+
+        if (isBoost)
+        {
+            currSpawnScore++;
+        }
+        else if (isKnob)
         {
             Knob knob = blockTrans.GetComponent<Knob>();
 
@@ -136,17 +166,17 @@ public class LevelSpawner : MonoBehaviour
 
             knob.SetScore(currSpawnScore);
 
-            spawnerTrans.position = knob.spawnerEndTrans.position;
-            spawnerTrans.eulerAngles = knob.spawnerEndTrans.eulerAngles;
-
             facedWithAKnob = true;
         }
         else
         {
             //So we move currPos
 
-            spawnerTrans.Translate(0, 0, roadSpawnOffset, Space.Self);
+            //spawnerTrans.Translate(0, 0, roadSpawnOffset, Space.Self);
 
         }
+
+        spawnerTrans.position = blockChild.position;
+        spawnerTrans.eulerAngles = blockChild.eulerAngles;
     }
 }

@@ -2899,12 +2899,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBlockCount: 40
   knobSpawnChancePerRoad: 69.5
-  roadSpawnOffset: 20
-  minRoadsPerKnob: 2
-  maxRoadsPerKnob: 0
+  minRoadsPerKnob: 1
+  maxRoadsPerKnob: 2
+  knobsPerBoost: 2
   knobPrefab: {fileID: 1614778784693701484, guid: 59f75c486b6de4adbaf5801ec38b11b8,
     type: 3}
   roadPrefab: {fileID: 4231976338949779092, guid: 42761be7af82246f0b1ee66c9a02be8a,
+    type: 3}
+  boostPrefab: {fileID: 4522434856751802065, guid: afde3e66ddb1341ddbbae11dd36cd112,
     type: 3}
   spawnerTrans: {fileID: 1830460405}
 --- !u!114 &2061872071
@@ -2920,6 +2922,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabPoolOptions:
+  - prefabTransform: {fileID: 4522434856751802065, guid: afde3e66ddb1341ddbbae11dd36cd112,
+      type: 3}
+    instancesToPreload: 1
+    isPoolExpanded: 0
+    showDebugLog: 0
+    poolCanGrow: 1
+    cullDespawned: 0
+    cullAbove: 10
+    cullDelay: 2
+    cullAmount: 1
+    enableHardLimit: 0
+    hardLimit: 10
+    recycle: 1
   - prefabTransform: {fileID: 1614778784693701484, guid: 59f75c486b6de4adbaf5801ec38b11b8,
       type: 3}
     instancesToPreload: 2
@@ -3098,11 +3113,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2061872069}
     m_Modifications:
-    - target: {fileID: 1956207846192344670, guid: 59f75c486b6de4adbaf5801ec38b11b8,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1614778784693701483, guid: 59f75c486b6de4adbaf5801ec38b11b8,
         type: 3}
       propertyPath: m_Name
@@ -3167,6 +3177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956207846192344670, guid: 59f75c486b6de4adbaf5801ec38b11b8,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59f75c486b6de4adbaf5801ec38b11b8, type: 3}

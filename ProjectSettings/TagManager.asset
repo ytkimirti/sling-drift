@@ -8,6 +8,8 @@ TagManager:
   - Border
   - DirectionTriggerGuide
   - DirectionTriggerDisabler
+  - BoostStart
+  - BoostEnd
   layers:
   - Default
   - TransparentFX
