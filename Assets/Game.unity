@@ -3108,6 +3108,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knob
       objectReference: {fileID: 0}
+    - target: {fileID: 1614778784693701483, guid: 59f75c486b6de4adbaf5801ec38b11b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1614778784693701484, guid: 59f75c486b6de4adbaf5801ec38b11b8,
         type: 3}
       propertyPath: m_LocalPosition.x

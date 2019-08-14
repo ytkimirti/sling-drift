@@ -131,8 +131,8 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Knob" && currKnob && other.GetComponent<Knob>() == currKnob)
         {
-            currKnob = null;
             RemoveConnection();
+            currKnob = null;
         }
     }
 
@@ -231,6 +231,7 @@ public class Player : MonoBehaviour
             return;
 
         currKnob = knob;
+        currKnob.isMakingConnection = true;
         isMakingConnection = true;
 
         memDistance = hardDist(knob.jointDotTrans.position);
@@ -260,6 +261,9 @@ public class Player : MonoBehaviour
     void RemoveConnection()
     {
         isMakingConnection = false;
+
+        if (currKnob)
+            currKnob.isMakingConnection = false;
 
         memDistance = 0;
         UpdateLineRenderer(Vector3.zero);
