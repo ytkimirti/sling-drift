@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZ_Pooling;
 
 public class Knob : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Knob : MonoBehaviour
 
     [Space]
 
+    public Transform spawnerEndTrans;
     public Transform visualDotTrans;
     public Transform jointDotTrans;
     public Transform correctionEnablerTrans;
@@ -20,9 +22,7 @@ public class Knob : MonoBehaviour
 
     void Start()
     {
-        turnDir = transform.right;
-
-        UpdateDirection();
+        //UpdateDirection();
     }
 
     void OnValidate()
@@ -30,10 +30,12 @@ public class Knob : MonoBehaviour
         UpdateDirection();
     }
 
-    void UpdateDirection()
+    public void UpdateDirection()
     {
         if (isLeft)
         {
+            turnDir = -transform.right;
+
             if (roadTrans.localScale.x > 0)
             {
                 InverseEverything();
@@ -41,6 +43,8 @@ public class Knob : MonoBehaviour
         }
         else
         {
+            turnDir = transform.right;
+
             if (roadTrans.localScale.x < 0)
             {
                 InverseEverything();

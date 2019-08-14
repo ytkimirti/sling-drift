@@ -67,6 +67,11 @@ public class Player : MonoBehaviour
 
         if (tag == "Knob")
         {
+            if (currKnob)
+            {
+                RemoveConnection();
+            }
+
             currKnob = other.gameObject.GetComponent<Knob>();
 
             if (!currKnob)
@@ -86,6 +91,8 @@ public class Player : MonoBehaviour
 
             print("The angle is " + targetAngle);
             isCorrectingDirection = true;
+
+            LevelSpawner.main.OnKnobFinished();
         }
         else if (tag == "DirectionTriggerDisabler")
         {
@@ -96,7 +103,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Knob" && currKnob)
+        if (other.tag == "Knob" && currKnob && other.GetComponent<Knob>() == currKnob)
         {
             currKnob = null;
             RemoveConnection();
@@ -227,7 +234,7 @@ public class Player : MonoBehaviour
         joint.anchor = localAnchor;
         joint.enablePreprocessing = false;
 
-        float visualTurnAngle = currKnob.isLeft ? -30 : 30;
+        float visualTurnAngle = currKnob.isLeft ? -20 : 20;
 
         JointSpring hingeSpring = visualHingeJoint.spring;
 
