@@ -114,6 +114,7 @@ public class Player : MonoBehaviour
         else if (tag == "BoostStart")
         {
             nextStageTextAnim.SetTrigger("NextStage");
+            GameManager.main.ChangeGroundColor();
             isBoosting = true;
         }
         else if (tag == "BoostEnd")

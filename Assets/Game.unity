@@ -1089,13 +1089,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 876320068}
-    characterCount: 0
+    characterCount: 10
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -1468,8 +1468,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16753498
-  m_fontColor: {r: 0.3537736, g: 0.6429921, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1528,13 +1528,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1142569621}
-    characterCount: 0
+    characterCount: 10
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -3089,11 +3089,19 @@ MonoBehaviour:
   isLoosed: 0
   isGameOver: 0
   currScore: 0
+  colorThemes:
+  - {r: 0.5042974, g: 0.6320754, b: 0.40846384, a: 1}
+  - {r: 0.3443841, g: 0.5371087, b: 0.6698113, a: 1}
+  - {r: 0.3544169, g: 0.34509805, b: 0.67058825, a: 1}
+  - {r: 0.6603774, g: 0.37068352, b: 0.6461747, a: 1}
+  - {r: 0.764151, g: 0.26312745, b: 0.27672863, a: 1}
+  - {r: 0.7647059, g: 0.527174, b: 0.26274514, a: 1}
   mainMenuMaxScoreText: {fileID: 1900172231}
   gameOverScoreText: {fileID: 790778799}
   gameOverMaxScoreText: {fileID: 1573634623}
   gameOverAnim: {fileID: 1256537444}
   mainMenuAnim: {fileID: 989135808}
+  groundMaterial: {fileID: 2100000, guid: 8811954738bcf4e749876c94bd143599, type: 2}
 --- !u!4 &2042612515
 Transform:
   m_ObjectHideFlags: 0

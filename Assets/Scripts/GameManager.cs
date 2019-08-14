@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public int currScore;
 
+    public Color[] colorThemes;
+
     [Header("References")]
 
     public TextMeshProUGUI mainMenuMaxScoreText;
@@ -26,7 +28,10 @@ public class GameManager : MonoBehaviour
     public Animator gameOverAnim;
     public Animator mainMenuAnim;
 
+    public Material groundMaterial;
+
     int highScore;
+    int currColor;
     //REFERENCES ETC CODES ETCETC
 
     //PRIVATE STUFF
@@ -45,6 +50,16 @@ public class GameManager : MonoBehaviour
         LoadHighscore();
 
         SetMenuScoreTexts();
+
+        groundMaterial.color = colorThemes[0];
+    }
+
+    public void ChangeGroundColor()
+    {
+        currColor++;
+        Color col = colorThemes[currColor];
+
+        groundMaterial.DOColor(col, 0.6f);
     }
 
     public void OnScored()
