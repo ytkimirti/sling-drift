@@ -8,6 +8,7 @@ using TMPro;
 public class Knob : MonoBehaviour
 {
     public bool isLeft;
+    public bool isMakingConnection;
 
     [Space]
 
@@ -16,6 +17,7 @@ public class Knob : MonoBehaviour
     public Transform jointDotTrans;
     public Transform correctionEnablerTrans;
     public Transform roadTrans;
+    public Transform dotTopTrans;
     public SphereCollider sphereCollider;
     public TextMeshPro scoreText;
 
@@ -92,6 +94,6 @@ public class Knob : MonoBehaviour
 
     void Update()
     {
-
+        dotTopTrans.localPosition = Vector3.up * Mathf.Lerp(dotTopTrans.localPosition.y, isMakingConnection ? 0 : -2, 5 * Time.deltaTime);//QUICK POLISH, just a biiit dirty
     }
 }
