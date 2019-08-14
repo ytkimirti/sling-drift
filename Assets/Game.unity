@@ -223,7 +223,7 @@ MonoBehaviour:
   isBoosting: 0
   boostExtraSpeed: 400
   currPerfectStreak: 0
-  perfectAccuracy: 10
+  perfectAccuracy: 8
   defMoveSpeed: 200
   moveSpeedIncreasePerScore: 5
   maxMoveSpeed: 350
