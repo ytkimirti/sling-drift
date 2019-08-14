@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using DG.Tweening;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class Player : MonoBehaviour
 
     public bool isBoosting;
     public float boostExtraSpeed;
+
+    [Header("Perfect")]
+
+    public int currPerfectStreak;
+    public float perfectAccuracy;
 
     [Header("Hardness")]
     public float defMoveSpeed;
@@ -46,6 +52,7 @@ public class Player : MonoBehaviour
     public LineRenderer lineRen;
     public Animator nextStageTextAnim;
     public Animator perfectTextAnim;
+    public TextMeshProUGUI perfectText;
 
     [HideInInspector]
     public Rigidbody rb;
@@ -139,6 +146,7 @@ public class Player : MonoBehaviour
         {
             correctDirVec = Vector3.zero;
             isCorrectingDirection = false;
+            releaseAccuracy = 0;
         }
     }
 
@@ -151,19 +159,36 @@ public class Player : MonoBehaviour
         }
     }
 
+    void PerfectMade()
+    {
+        currPerfectStreak++;
+        perfectTextAnim.SetTrigger("PerfectText");
+
+        perfectText.text = "Perfect x" + currPerfectStreak.ToString();
+    }
+
+    void PerfectLost()
+    {
+        currPerfectStreak = 0;
+        //perfectTextAnim.SetTrigger("PerfectLost");
+    }
+
     void Update()
     {
-        /*
-        if (!isTookOff && rb.velocity.z < moveSpeed)
+        if (isCorrectingDirection && !isMakingConnection && releaseAccuracy == 0)
         {
-            rb.velocity = rb.velocity + (Vector3.forward * Time.deltaTime * accelerateSpeed);
+            releaseAccuracy = Mathf.DeltaAngle(transform.localEulerAngles.y, targetAngle) - 3;
+            print(releaseAccuracy);
 
-            if (rb.velocity.z > moveSpeed)
+            if (Mathf.Abs(releaseAccuracy) < perfectAccuracy)
             {
-                rb.velocity = new Vector3(rb.velocity.x, 0, moveSpeed);
-                isTookOff = true;
+                PerfectMade();
             }
-        } */
+            else
+            {
+                PerfectLost();
+            }
+        }
 
         if (!isDed && GameManager.main.isGameStarted && Input.GetKey(KeyCode.Mouse0))
         {
@@ -233,6 +258,8 @@ public class Player : MonoBehaviour
             return;
 
         RemoveConnection();
+
+        perfectText.gameObject.SetActive(false);
 
         isCorrectingDirection = false;
 

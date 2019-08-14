@@ -222,6 +222,8 @@ MonoBehaviour:
   isDed: 0
   isBoosting: 0
   boostExtraSpeed: 400
+  currPerfectStreak: 0
+  perfectAccuracy: 10
   defMoveSpeed: 200
   moveSpeedIncreasePerScore: 5
   maxMoveSpeed: 350
@@ -239,6 +241,7 @@ MonoBehaviour:
   lineRen: {fileID: 226445656}
   nextStageTextAnim: {fileID: 1142569620}
   perfectTextAnim: {fileID: 876320067}
+  perfectText: {fileID: 876320068}
   rb: {fileID: 0}
 --- !u!4 &226445654
 Transform:
@@ -974,11 +977,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 465}
+  m_AnchoredPosition: {x: 0, y: 248}
   m_SizeDelta: {x: 863.5, y: 256.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &876320067
@@ -1089,13 +1092,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 876320068}
-    characterCount: 10
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -1151,7 +1154,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1241,7 +1244,7 @@ RectTransform:
   - {fileID: 1455659797}
   - {fileID: 1918701294}
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1413,7 +1416,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1528,13 +1531,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1142569621}
-    characterCount: 10
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -1754,7 +1757,7 @@ RectTransform:
   - {fileID: 1806390110}
   - {fileID: 1790905490}
   m_Father: {fileID: 2053066184}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3096,6 +3099,12 @@ MonoBehaviour:
   - {r: 0.6603774, g: 0.37068352, b: 0.6461747, a: 1}
   - {r: 0.764151, g: 0.26312745, b: 0.27672863, a: 1}
   - {r: 0.7647059, g: 0.527174, b: 0.26274514, a: 1}
+  - {r: 0.74476326, g: 0.7647059, b: 0.26274514, a: 1}
+  - {r: 0.3443841, g: 0.5371087, b: 0.6698113, a: 1}
+  - {r: 0.3544169, g: 0.34509805, b: 0.67058825, a: 1}
+  - {r: 0.6603774, g: 0.37068352, b: 0.6461747, a: 1}
+  - {r: 0.764151, g: 0.26312745, b: 0.27672863, a: 1}
+  - {r: 0.7647059, g: 0.527174, b: 0.26274514, a: 1}
   mainMenuMaxScoreText: {fileID: 1900172231}
   gameOverScoreText: {fileID: 790778799}
   gameOverMaxScoreText: {fileID: 1573634623}
@@ -3206,11 +3215,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 876320066}
   - {fileID: 1256537441}
   - {fileID: 989135807}
   - {fileID: 882894991}
   - {fileID: 1142569619}
-  - {fileID: 876320066}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3269,7 +3278,7 @@ MonoBehaviour:
   knobSpawnChancePerRoad: 69.5
   minRoadsPerKnob: 1
   maxRoadsPerKnob: 2
-  knobsPerBoost: 2
+  knobsPerBoost: 5
   knobPrefab: {fileID: 1614778784693701484, guid: 59f75c486b6de4adbaf5801ec38b11b8,
     type: 3}
   roadPrefab: {fileID: 4231976338949779092, guid: 42761be7af82246f0b1ee66c9a02be8a,
