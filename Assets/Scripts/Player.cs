@@ -7,8 +7,8 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
 
+    public bool isDed = false;
     public float moveSpeed;
-    public float accelerateSpeed;
 
     [Header("Connection & Turning")]
     public Knob currKnob;
@@ -61,8 +61,19 @@ public class Player : MonoBehaviour
         visual.GetComponent<Rigidbody>().centerOfMass = visualCenterOfMass.localPosition;
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Border")
+        {
+            Die();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+        if (!GameManager.main.isGameStarted)
+            return;
+
         string tag = other.tag;
 
         if (tag == "Knob")
@@ -112,6 +123,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        /*
         if (!isTookOff && rb.velocity.z < moveSpeed)
         {
             rb.velocity = rb.velocity + (Vector3.forward * Time.deltaTime * accelerateSpeed);
@@ -121,9 +133,9 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x, 0, moveSpeed);
                 isTookOff = true;
             }
-        }
+        } */
 
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (!isDed && GameManager.main.isGameStarted && Input.GetKey(KeyCode.Mouse0))
         {
             if (currKnob)
                 MakeConnection(currKnob);
@@ -159,6 +171,11 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.main.isGameStarted || isDed)
+            return;
+
+        rb.AddForce(transform.forward * moveSpeed, ForceMode.Force);
+
         if (isCorrectingDirection && !isMakingConnection)
         {
             //Velocity correction
@@ -177,9 +194,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
+        if (isDed)
+            return;
+
+        RemoveConnection();
+
+        isCorrectingDirection = false;
+
         print("BOOM EXPLODED");
+
+        isDed = true;
 
         GameManager.main.Loose();
     }

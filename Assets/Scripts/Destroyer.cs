@@ -5,20 +5,12 @@ using UnityEngine;
 public class Destroyer : MonoBehaviour
 {
     public float secondsLeftToBeDestroyed;
+    bool startedEnum;
 
-    void Start()
-    {
-        StartCoroutine(DestroyEnum());
-    }
 
     public void StopEnum()
     {
         StopCoroutine(DestroyEnum());
-    }
-
-    void OnDespawned()
-    {
-        StopEnum();
     }
 
     IEnumerator DestroyEnum()
@@ -30,6 +22,11 @@ public class Destroyer : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.main.isGameStarted && !startedEnum)
+        {
+            startedEnum = true;
+            StartCoroutine(DestroyEnum());
+        }
 
     }
 }

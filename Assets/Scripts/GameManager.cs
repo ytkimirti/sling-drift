@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isGameStarted;
     public bool isLoosed;
     public bool isGameOver;
 
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
     [Header("References")]
 
     public TextMeshProUGUI currScoreText;
+    public Animator gameOverAnim;
+    public Animator mainMenuAnim;
     //REFERENCES ETC CODES ETCETC
 
     //PRIVATE STUFF
@@ -34,6 +37,12 @@ public class GameManager : MonoBehaviour
     void Start()//-start
     {
 
+    }
+
+    public void StartGame()
+    {
+        isGameStarted = true;
+        mainMenuAnim.SetTrigger("GameStart");
     }
 
     public void Loose()//-loose
@@ -68,7 +77,7 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
 
         //Game over code
-        Invoke("RestartGame", 2f);
+        gameOverAnim.SetTrigger("GameOver");
     }
 
     public void RestartGame()//-restart

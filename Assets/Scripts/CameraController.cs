@@ -9,7 +9,8 @@ public class CameraController : MonoBehaviour
 
     [Space]
 
-    public Vector2 offset;
+    public Vector3 offset;
+    public Vector2 dynamicOffset;
     public float angle;
 
     [Space]
@@ -43,7 +44,7 @@ public class CameraController : MonoBehaviour
     void UpdateHolder()
     {
         holder.localEulerAngles = new Vector3(angle, 0, 0);
-        holder.transform.localPosition = new Vector3(0, offset.y, offset.x);
+        holder.transform.localPosition = offset;
     }
 
     void FixedUpdate()
@@ -54,6 +55,8 @@ public class CameraController : MonoBehaviour
         if (target)
         {
             targetPos = target.position;
+
+            targetPos = targetPos + Vector3.Scale(Player.main.transform.forward, dynamicOffset.ToVector3());
         }
 
         transform.position = Vector3.Lerp(transform.position, targetPos, lerpSpeed * Time.deltaTime);

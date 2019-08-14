@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GlowLoop : MonoBehaviour
 {
     public Image image;
-    public TextMeshPro text;
+    public TextMeshProUGUI text;
     public SpriteRenderer sprite;
 
     [Space]
