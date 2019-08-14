@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [Header("Hardness")]
     public float defMoveSpeed;
     public float moveSpeedIncreasePerScore;
+    public float maxMoveSpeed;
     float moveSpeed;
 
     [Header("Connection & Turning")]
@@ -67,9 +68,12 @@ public class Player : MonoBehaviour
         SetMoveSpeed();
     }
 
-    void SetMoveSpeed()
+    public void SetMoveSpeed()
     {
         moveSpeed = defMoveSpeed + (GameManager.main.currScore * moveSpeedIncreasePerScore);
+
+        if (moveSpeed > maxMoveSpeed)
+            moveSpeed = maxMoveSpeed;
     }
 
     private void OnCollisionEnter(Collision other)

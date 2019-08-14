@@ -45,6 +45,7 @@ public class Knob : MonoBehaviour
     public void OnPlayerScored()
     {
         GameManager.main.currScore = myScore;
+        GameManager.main.OnScored();
         scoreText.DOColor(Color.yellow, 0.3f).SetLoops(1, LoopType.Yoyo);
         scoreText.transform.DOPunchScale(Vector3.one * 0.6f, 0.4f, 4);
     }

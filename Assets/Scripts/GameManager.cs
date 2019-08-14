@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
         SetMenuScoreTexts();
     }
 
+    public void OnScored()
+    {
+        Player.main.SetMoveSpeed();//Makes the player's speed faster so the game is harder, duh
+    }
+
     void LoadHighscore()
     {
         if (PlayerPrefs.HasKey("highscore"))

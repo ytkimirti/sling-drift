@@ -220,7 +220,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDed: 0
-  moveSpeed: 200
+  defMoveSpeed: 200
+  moveSpeedIncreasePerScore: 5
+  maxMoveSpeed: 350
   currKnob: {fileID: 0}
   isMakingConnection: 0
   minJointDistance: 0.3
@@ -691,7 +693,7 @@ MonoBehaviour:
   offset: {x: 0, y: 83, z: -90}
   dynamicOffset: {x: 5, y: 10}
   angle: 43.71
-  lerpSpeed: 8
+  lerpSpeed: 11
   holder: {fileID: 1494976130}
   cam: {fileID: 534669904}
 --- !u!4 &664235801
