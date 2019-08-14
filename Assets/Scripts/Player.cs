@@ -6,8 +6,12 @@ using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
-
     public bool isDed = false;
+
+    [Header("Boost")]
+
+    public bool isBoosting;
+    public float boostExtraSpeed;
 
     [Header("Hardness")]
     public float defMoveSpeed;
@@ -40,6 +44,8 @@ public class Player : MonoBehaviour
     public Transform visualCenterOfMass;
     public HingeJoint visualHingeJoint;
     public LineRenderer lineRen;
+    public Animator nextStageTextAnim;
+    public Animator perfectTextAnim;
 
     [HideInInspector]
     public Rigidbody rb;
@@ -104,6 +110,15 @@ public class Player : MonoBehaviour
             {
                 Debug.LogError("Somehow this knob doesn't have the script or something is wrong :/");
             }
+        }
+        else if (tag == "BoostStart")
+        {
+            nextStageTextAnim.SetTrigger("NextStage");
+            isBoosting = true;
+        }
+        else if (tag == "BoostEnd")
+        {
+            isBoosting = false;
         }
         else if (tag == "DirectionTriggerGuide")
         {
@@ -189,6 +204,9 @@ public class Player : MonoBehaviour
             return;
 
         rb.AddForce(transform.forward * moveSpeed, ForceMode.Force);
+
+        if (isBoosting)
+            rb.AddForce(transform.forward * boostExtraSpeed, ForceMode.Force);
 
         if (isCorrectingDirection && !isMakingConnection)
         {
