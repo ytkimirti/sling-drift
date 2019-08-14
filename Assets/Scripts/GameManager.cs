@@ -43,8 +43,6 @@ public class GameManager : MonoBehaviour
 
         isLoosed = true;
 
-        Invoke("RestartGame", 2f);
-
         print("LOOSE");
 
         GameOver();
@@ -70,6 +68,7 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
 
         //Game over code
+        Invoke("RestartGame", 2f);
     }
 
     public void RestartGame()//-restart

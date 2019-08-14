@@ -177,6 +177,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Die()
+    {
+        print("BOOM EXPLODED");
+
+        GameManager.main.Loose();
+    }
+
     void MakeConnection(Knob knob)
     {
         if (isMakingConnection)
