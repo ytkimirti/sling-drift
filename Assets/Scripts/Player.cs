@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     public bool isMakingConnection;
     public float minJointDistance;//The distance it takes to just get away from the knob that it creates a joint
     float memDistance;
-    HingeJoint joint;
+    bool isJointed;
 
     [Space]
 
@@ -48,8 +48,6 @@ public class Player : MonoBehaviour
 
     public Transform lineCenterTrans;
     public Transform visual;
-    public Transform visualCenterOfMass;
-    public HingeJoint visualHingeJoint;
     public LineRenderer lineRen;
     public Animator nextStageTextAnim;
     public Animator perfectTextAnim;
@@ -76,8 +74,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        visual.GetComponent<Rigidbody>().centerOfMass = visualCenterOfMass.localPosition;
 
         SetMoveSpeed();
     }
@@ -327,42 +323,22 @@ public class Player : MonoBehaviour
 
     void AddJoint(Vector3 anchor)
     {
-        if (joint)
+        if (isJointed)
             return;
+
+        isJointed = true;
 
         //print("Created a joint yeaa");
 
-        joint = gameObject.AddComponent<HingeJoint>();
-
-        Vector3 localAnchor = transform.InverseTransformPoint(anchor);
-
-        joint.axis = Vector3.up;
-        joint.anchor = localAnchor;
-        joint.enablePreprocessing = false;
-
-        float visualTurnAngle = currKnob.isLeft ? -20 : 20;
-
-        JointSpring hingeSpring = visualHingeJoint.spring;
-
-        hingeSpring.targetPosition = visualTurnAngle;
-
-        visualHingeJoint.spring = hingeSpring;
+        //Adding the hinge joint here
 
     }
 
     void RemoveJoint()
     {
-        if (!joint)
+        if (!isJointed)
             return;
 
-        Destroy(joint);
-
-        JointSpring hingeSpring = visualHingeJoint.spring;
-
-        hingeSpring.targetPosition = 0;
-
-        visualHingeJoint.spring = hingeSpring;
-
-        joint = null;
+        isJointed = false;
     }
 }

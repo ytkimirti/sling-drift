@@ -236,8 +236,6 @@ MonoBehaviour:
   correctDirVec: {x: 0, y: 0}
   lineCenterTrans: {fileID: 1049250016}
   visual: {fileID: 1007619203}
-  visualCenterOfMass: {fileID: 1772928905}
-  visualHingeJoint: {fileID: 1007619198}
   lineRen: {fileID: 226445656}
   nextStageTextAnim: {fileID: 1142569620}
   perfectTextAnim: {fileID: 876320067}
@@ -256,6 +254,7 @@ Transform:
   m_Children:
   - {fileID: 229788198}
   - {fileID: 1049250016}
+  - {fileID: 1007619203}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1295,8 +1294,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1007619203}
-  - component: {fileID: 1007619199}
-  - component: {fileID: 1007619198}
   m_Layer: 0
   m_Name: CarVisual
   m_TagString: Untagged
@@ -1304,57 +1301,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!59 &1007619198
-HingeJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1007619197}
-  m_ConnectedBody: {fileID: 226445655}
-  m_Anchor: {x: 0, y: 0, z: 2.49}
-  m_Axis: {x: 0, y: 1, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 2.49}
-  m_UseSpring: 1
-  m_Spring:
-    spring: 700
-    damper: 40
-    targetPosition: 0
-  m_UseMotor: 0
-  m_Motor:
-    targetVelocity: 0
-    force: 0
-    freeSpin: 0
-  m_UseLimits: 1
-  m_Limits:
-    min: -60
-    max: 60
-    bounciness: 0
-    bounceMinVelocity: 0.2
-    contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 0
-  m_MassScale: 0.1
-  m_ConnectedMassScale: 0.001
---- !u!54 &1007619199
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1007619197}
-  serializedVersion: 2
-  m_Mass: 0.01
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!4 &1007619203
 Transform:
   m_ObjectHideFlags: 0
@@ -1362,14 +1308,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1007619197}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 676771112}
   - {fileID: 1772928905}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 226445654}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1049250015
 GameObject:
@@ -2664,7 +2610,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1900172229
 GameObject:
@@ -3237,7 +3183,7 @@ RectTransform:
   - {fileID: 989135807}
   - {fileID: 882894991}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3422,7 +3368,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1614778784693701484 stripped
 Transform:
