@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
 {
     public bool isDed = false;
 
+    public Vector2 currVel;
+    public Vector2 targetVel;
+    public float accelSpeed;
+
     [Header("Boost")]
 
     public bool isBoosting;
@@ -74,6 +78,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        correctDirVec = Vector2.up;
 
         SetMoveSpeed();
     }
@@ -176,6 +182,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (!isDed && GameManager.main.isGameStarted)
+        {
+            MoveCar();
+            CorrectDirection();
+        }
+
         if (isCorrectingDirection && !isMakingConnection && releaseAccuracy == 0)
         {
             releaseAccuracy = Mathf.DeltaAngle(transform.localEulerAngles.y, targetAngle) - 3;
@@ -227,29 +239,37 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+    }
+
+    void MoveCar()
+    {
         if (!GameManager.main.isGameStarted || isDed)
             return;
 
-        rb.AddForce(transform.forward * moveSpeed, ForceMode.Force);
+        targetVel = correctDirVec * moveSpeed;
 
         if (isBoosting)
-            rb.AddForce(transform.forward * boostExtraSpeed, ForceMode.Force);
+            targetVel *= boostExtraSpeed;
 
+        if (!isJointed)
+        {
+            //Increasing the currVel with a vector that is maxMagnitude of accelSpeed  * Time.deltaTime 
+            currVel = currVel + (Vector2.ClampMagnitude(targetVel - currVel, accelSpeed) * Time.deltaTime);
+        }
+
+        transform.Translate(currVel.ToVector3() * Time.deltaTime);
+    }
+
+    void CorrectDirection()
+    {
         if (isCorrectingDirection && !isMakingConnection)
         {
-            //Velocity correction
-
-            Vector3 correctDirVec3 = correctDirVec.ToVector3();
-
-            //rb.velocity = Vector3.Scale(rb.velocity, correctDirVec3);
-
-            //Angular correction
-
-            float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle);
+            transform.localEulerAngles = Vector3.up * targetAngle;
+            //float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle);
 
             //print(string.Format("Delta Angle: {0} Torque: {1} Target: {2}", deltaAngle, transform.eulerAngles.y, targetAngle + 90));
-
-            rb.angularVelocity = Vector3.up * deltaAngle * correctingTorque;
+            //rb.angularVelocity = Vector3.up * deltaAngle * correctingTorque;
         }
     }
 

@@ -47,7 +47,7 @@ public class CameraController : MonoBehaviour
         holder.transform.localPosition = offset;
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
 
         UpdateHolder();

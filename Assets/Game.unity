@@ -199,7 +199,6 @@ GameObject:
   - component: {fileID: 226445653}
   - component: {fileID: 226445655}
   - component: {fileID: 226445656}
-  - component: {fileID: 226445657}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -220,13 +219,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDed: 0
+  currVel: {x: 0, y: 0}
+  targetVel: {x: 0, y: 0}
+  accelSpeed: 20
   isBoosting: 0
-  boostExtraSpeed: 400
+  boostExtraSpeed: 4
   currPerfectStreak: 0
   perfectAccuracy: 8
-  defMoveSpeed: 200
-  moveSpeedIncreasePerScore: 5
-  maxMoveSpeed: 350
+  defMoveSpeed: 20
+  moveSpeedIncreasePerScore: 1
+  maxMoveSpeed: 40
   currKnob: {fileID: 0}
   isMakingConnection: 0
   minJointDistance: 0.3
@@ -270,7 +272,7 @@ Rigidbody:
   m_Drag: 6
   m_AngularDrag: 10
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
@@ -369,18 +371,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!75 &226445657
-ConstantForce:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226445652}
-  m_Enabled: 0
-  m_Force: {x: 0, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: 0, z: 200}
-  m_Torque: {x: 0, y: 0, z: 0}
-  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1 &229788197
 GameObject:
   m_ObjectHideFlags: 0
