@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
 
     public Material groundMaterial;
 
+    public Vector2 testVec;
+    public float testAngle;
+
     int highScore;
     int currColor;
     //REFERENCES ETC CODES ETCETC
@@ -44,7 +47,10 @@ public class GameManager : MonoBehaviour
     {
         main = this;
     }
-
+    private void Update()
+    {
+        testAngle = testVec.ToAngle();
+    }
     void Start()//-start
     {
         LoadHighscore();

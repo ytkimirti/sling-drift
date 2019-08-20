@@ -146,6 +146,16 @@ public static class Vector2Extension
         return true;
     }
 
+
+    public static float NormalizeAngle(this float angle)
+    {
+        if (angle < 0)
+        {
+            return 360 - angle;
+        }
+        return angle;
+    }
+
     public static float ToAngle(this Vector2 v)
     {
         if (v.x < 0)

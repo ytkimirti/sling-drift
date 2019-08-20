@@ -221,17 +221,19 @@ MonoBehaviour:
   isDed: 0
   currVel: {x: 0, y: 0}
   targetVel: {x: 0, y: 0}
-  accelSpeed: 20
+  accelSpeed: 80
   isBoosting: 0
   boostExtraSpeed: 4
   currPerfectStreak: 0
   perfectAccuracy: 8
-  defMoveSpeed: 20
+  defMoveSpeed: 40
   moveSpeedIncreasePerScore: 1
   maxMoveSpeed: 40
   currKnob: {fileID: 0}
   isMakingConnection: 0
   minJointDistance: 0.3
+  baseDist: 14
+  speedMult: 1
   correctingTorque: 0.23
   correctingForce: 0
   isCorrectingDirection: 0
@@ -272,7 +274,7 @@ Rigidbody:
   m_Drag: 6
   m_AngularDrag: 10
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
@@ -3063,6 +3065,8 @@ MonoBehaviour:
   gameOverAnim: {fileID: 1256537444}
   mainMenuAnim: {fileID: 989135808}
   groundMaterial: {fileID: 2100000, guid: 8811954738bcf4e749876c94bd143599, type: 2}
+  testVec: {x: 0, y: 0}
+  testAngle: 0
 --- !u!4 &2042612515
 Transform:
   m_ObjectHideFlags: 0

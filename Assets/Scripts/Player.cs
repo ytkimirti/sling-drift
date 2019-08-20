@@ -34,8 +34,16 @@ public class Player : MonoBehaviour
     public Knob currKnob;
     public bool isMakingConnection;
     public float minJointDistance;//The distance it takes to just get away from the knob that it creates a joint
+    //public float turningSpeed;
     float memDistance;
     bool isJointed;
+    float jointDistance;
+    float jointAngle;
+
+    [Header("Turning Speed")]
+    public float baseDist = 12;
+    public float speedMult = 1;
+    float currJointSpeed;
 
     [Space]
 
@@ -184,6 +192,9 @@ public class Player : MonoBehaviour
     {
         if (!isDed && GameManager.main.isGameStarted)
         {
+            if (isJointed)
+                UpdatePosToKnob(currKnob.jointDotTrans.position, jointDistance, jointAngle);
+
             MoveCar();
             CorrectDirection();
         }
@@ -228,7 +239,7 @@ public class Player : MonoBehaviour
             if (diff > minJointDistance)
             {
                 //print("GOT IN YEAAA");
-                AddJoint(currKnob.jointDotTrans.position);
+                AddJoint(currDistance);
             }
             else if (currDistance < memDistance)
             {
@@ -244,21 +255,22 @@ public class Player : MonoBehaviour
 
     void MoveCar()
     {
-        if (!GameManager.main.isGameStarted || isDed)
-            return;
-
-        targetVel = correctDirVec * moveSpeed;
-
-        if (isBoosting)
-            targetVel *= boostExtraSpeed;
-
-        if (!isJointed)
+        if (isJointed)
         {
+            jointAngle += currJointSpeed * Time.deltaTime * (currKnob.isLeft ? 1 : -1);
+        }
+        else
+        {
+            targetVel = correctDirVec * moveSpeed;
+
+            if (isBoosting)
+                targetVel *= boostExtraSpeed;
+
             //Increasing the currVel with a vector that is maxMagnitude of accelSpeed  * Time.deltaTime 
             currVel = currVel + (Vector2.ClampMagnitude(targetVel - currVel, accelSpeed) * Time.deltaTime);
-        }
 
-        transform.Translate(currVel.ToVector3() * Time.deltaTime);
+            transform.Translate(currVel.ToVector3() * Time.deltaTime, Space.World);
+        }
     }
 
     void CorrectDirection()
@@ -270,6 +282,18 @@ public class Player : MonoBehaviour
 
             //print(string.Format("Delta Angle: {0} Torque: {1} Target: {2}", deltaAngle, transform.eulerAngles.y, targetAngle + 90));
             //rb.angularVelocity = Vector3.up * deltaAngle * correctingTorque;
+        }
+
+        if (isJointed)
+        {
+            float angle = -jointAngle;
+
+            if (!currKnob.isLeft)
+            {
+                angle = angle + 180;
+            }
+
+            transform.localEulerAngles = Vector3.up * angle;
         }
     }
 
@@ -341,14 +365,28 @@ public class Player : MonoBehaviour
         RemoveJoint();
     }
 
-    void AddJoint(Vector3 anchor)
+    void UpdatePosToKnob(Vector3 center, float dist, float angle)
+    {
+        Vector2 localVec = angle.DegreeToVector2() * dist;
+
+        transform.position = center + localVec.ToVector3();
+    }
+
+    void AddJoint(float dist)
     {
         if (isJointed)
             return;
 
         isJointed = true;
 
-        //print("Created a joint yeaa");
+        float speed = currVel.magnitude;
+
+        currJointSpeed = 90 * (speed / ((baseDist * Mathf.PI) / 2));
+
+        jointDistance = dist;
+        jointAngle = (transform.position.ToVector2() - currKnob.jointDotTrans.position.ToVector2()).ToAngle();
+
+        print(string.Format("Created joint dist: {0}, angle: {1}", jointDistance, jointAngle));
 
         //Adding the hinge joint here
 
@@ -360,5 +398,6 @@ public class Player : MonoBehaviour
             return;
 
         isJointed = false;
+        currVel = transform.forward.ToVector2() * moveSpeed;
     }
 }
