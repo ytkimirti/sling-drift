@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
 
     [Header("Connection & Turning")]
     public Knob currKnob;
+    public float rotatingAngleOffset;
     public bool isMakingConnection;
     public float minJointDistance;//The distance it takes to just get away from the knob that it creates a joint
     //public float turningSpeed;
@@ -190,15 +191,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!isDed && GameManager.main.isGameStarted)
-        {
-            if (isJointed)
-                UpdatePosToKnob(currKnob.jointDotTrans.position, jointDistance, jointAngle);
-
-            MoveCar();
-            CorrectDirection();
-        }
-
         if (isCorrectingDirection && !isMakingConnection && releaseAccuracy == 0)
         {
             releaseAccuracy = Mathf.DeltaAngle(transform.localEulerAngles.y, targetAngle) - 3;
@@ -211,6 +203,15 @@ public class Player : MonoBehaviour
             {
                 PerfectLost();
             }
+        }
+
+        if (!isDed && GameManager.main.isGameStarted)
+        {
+            if (isJointed)
+                UpdatePosToKnob(currKnob.jointDotTrans.position, jointDistance, jointAngle);
+
+            MoveCar();
+            CorrectDirection();
         }
 
         if (!isDed && GameManager.main.isGameStarted && Input.GetKey(KeyCode.Mouse0))
@@ -298,6 +299,8 @@ public class Player : MonoBehaviour
             {
                 angle = angle + 180;
             }
+
+            angle += currKnob.isLeft ? rotatingAngleOffset : -rotatingAngleOffset;
 
             transform.localEulerAngles = Vector3.up * angle;
         }
@@ -392,7 +395,7 @@ public class Player : MonoBehaviour
         jointDistance = dist;
         jointAngle = (transform.position.ToVector2() - currKnob.jointDotTrans.position.ToVector2()).ToAngle();
 
-        print(string.Format("Created joint dist: {0}, angle: {1}", jointDistance, jointAngle));
+        //print(string.Format("Created joint dist: {0}, angle: {1}", jointDistance, jointAngle));
 
         //Adding the hinge joint here
 
