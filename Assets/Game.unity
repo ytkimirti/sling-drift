@@ -221,7 +221,7 @@ MonoBehaviour:
   isDed: 0
   currVel: {x: 0, y: 0}
   targetVel: {x: 0, y: 0}
-  accelSpeed: 80
+  accelSpeed: 3
   isBoosting: 0
   boostExtraSpeed: 4
   currPerfectStreak: 0
@@ -1675,6 +1675,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182986953}
   m_CullTransparentMesh: 0
+--- !u!4 &1226521152 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1614778784693701484, guid: 59f75c486b6de4adbaf5801ec38b11b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 8641175776668301761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1256537440
 GameObject:
   m_ObjectHideFlags: 0
@@ -3213,7 +3219,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1614778784693701484}
+  - {fileID: 1226521152}
   - {fileID: 1426796622}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -3364,12 +3370,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1614778784693701484 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1614778784693701484, guid: 59f75c486b6de4adbaf5801ec38b11b8,
-    type: 3}
-  m_PrefabInstance: {fileID: 8641175776668301761}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4231976338156344960
 PrefabInstance:
   m_ObjectHideFlags: 0

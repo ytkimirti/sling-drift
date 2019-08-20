@@ -202,7 +202,6 @@ public class Player : MonoBehaviour
         if (isCorrectingDirection && !isMakingConnection && releaseAccuracy == 0)
         {
             releaseAccuracy = Mathf.DeltaAngle(transform.localEulerAngles.y, targetAngle) - 3;
-            print(releaseAccuracy);
 
             if (Mathf.Abs(releaseAccuracy) < perfectAccuracy)
             {
@@ -261,13 +260,20 @@ public class Player : MonoBehaviour
         }
         else
         {
-            targetVel = correctDirVec * moveSpeed;
+            if (correctDirVec != Vector2.zero)
+                targetVel = correctDirVec * moveSpeed;
 
             if (isBoosting)
                 targetVel *= boostExtraSpeed;
 
             //Increasing the currVel with a vector that is maxMagnitude of accelSpeed  * Time.deltaTime 
-            currVel = currVel + (Vector2.ClampMagnitude(targetVel - currVel, accelSpeed) * Time.deltaTime);
+            //currVel = currVel + (Vector2.ClampMagnitude(targetVel - currVel, accelSpeed) * Time.deltaTime);
+
+            //currVel.x = currVel.x + (Mathf.Clamp(targetVel.x - currVel.x, -accelSpeed, accelSpeed) * Time.deltaTime * 10);
+
+            //currVel.y = currVel.y + (Mathf.Clamp(targetVel.y - currVel.y, -accelSpeed, accelSpeed) * Time.deltaTime * 10);
+
+            currVel = Vector2.Lerp(currVel, targetVel, accelSpeed * Time.deltaTime);
 
             transform.Translate(currVel.ToVector3() * Time.deltaTime, Space.World);
         }
