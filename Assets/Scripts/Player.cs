@@ -57,6 +57,16 @@ public class Player : MonoBehaviour
     float targetAngle;
     float releaseAccuracy;
 
+    [Header("Visual Movement")]
+
+    public Transform rotateCenter;
+
+    public float driftLerpSpeed;
+    public Ease releaseEase;
+
+    public float easeSpeed;
+    bool isDrifting;
+
     [Header("References")]
 
     public Transform lineCenterTrans;
@@ -91,6 +101,25 @@ public class Player : MonoBehaviour
         correctDirVec = Vector2.up;
 
         SetMoveSpeed();
+    }
+
+    void EaseVisualDrifting()
+    {
+        visual.DOKill();
+
+        isDrifting = true;
+        float newAngle = Mathf.LerpAngle(visual.transform.eulerAngles.y, transform.eulerAngles.y, Time.deltaTime * driftLerpSpeed);
+        visual.transform.eulerAngles = Vector3.up * newAngle;
+    }
+
+    void EaseVisualReleased()
+    {
+        if (!isDrifting)
+            return;
+
+        isDrifting = false;
+
+        visual.transform.DORotate(Vector3.up * transform.eulerAngles.y, easeSpeed).SetEase(releaseEase);
     }
 
     public void SetMoveSpeed()
@@ -282,9 +311,12 @@ public class Player : MonoBehaviour
 
     void CorrectDirection()
     {
+        visual.transform.position = transform.position;
+
         if (isCorrectingDirection && !isMakingConnection)
         {
             transform.localEulerAngles = Vector3.up * targetAngle;
+
             //float deltaAngle = Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle);
 
             //print(string.Format("Delta Angle: {0} Torque: {1} Target: {2}", deltaAngle, transform.eulerAngles.y, targetAngle + 90));
@@ -304,6 +336,11 @@ public class Player : MonoBehaviour
 
             transform.localEulerAngles = Vector3.up * angle;
         }
+
+        if (isJointed)
+            EaseVisualDrifting();
+        else
+            EaseVisualReleased();
     }
 
     public void Die()
